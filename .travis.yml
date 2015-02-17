@@ -1,0 +1,38 @@
+language: node_js
+node_js:
+- '0.11'
+before_install:
+- cp ci/travis-ci.sh $HOME/
+- chmod +x $HOME/travis-ci.sh
+- cp ci/npm-config.sh $HOME/
+- chmod +x $HOME/npm-config.sh
+- $HOME/travis-ci.sh before-install
+before_script:
+- $HOME/travis-ci.sh before-script
+script:
+- $HOME/travis-ci.sh script
+after_script:
+- $HOME/travis-ci.sh after-script
+after_success:
+- $HOME/travis-ci.sh after-success
+before_deploy:
+- $HOME/travis-ci.sh before-deploy
+- cd built
+after_deploy:
+- $HOME/travis-ci.sh after-deploy
+cache:
+  directories:
+  - node_modules
+notifications:
+  irc:
+  - chat.freenode.net#kalabox
+  email:
+    recipients:
+    - mike@kalamuna.com
+    - ben@kalamuna.com
+    on_success: always
+env:
+  global:
+  - secure: RC1M1tgv29ZmZUrQdxxe3qR2GFrzLEEhqViAW9H4Ssf5e4z65zZie49vjLt5b7+U6Is44AEHXW1rolXxTrq3K7Qphtd5PRcnBQexzMnt+R/4+NO4ZtYiClEX6AmYUS7j+pR2B5aJMjCG4auPD7fO3B1X0aRMDeublYSRPQUAhEE=
+  - secure: jnClQ8FCn/7CIa4Ses9DEn/v61HymbP4P2/Y5RUTH1+xuWQgYIwNm2RgULj8eEtxBIJ0zmgYT4RK5vTf42pk/cLPc824PdOhLglnKo/POmeFjiOuYcnIfMSW503Jo2e2XJ86n0Izm66hPBn+bq1bV4CS6uAbT8cxaj0+u35xtYU=
+  - secure: ITjIom6HSqIihhhvz/vkDYsk/yGkAH4qF8xuGNSJPf6BkyOpEhHetfj9yJMmrr0kaRjgydTwh3mJBvs8AbD1lq9ZjgmJ7zD6y1A4lf5UAzXgdYIhxjNXq32g1Om8tTAsDO6PEP47VAwGhqqarG/qQy3R24NtdvWHB9Zbj6Wb9l4=

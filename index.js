@@ -23,10 +23,12 @@ module.exports = function(app, events) {
         }
       },
       conf: {
-        pressflow_smart_start: 1
+        'pressflow_smart_start': 1
       }
     };
-    component.installOptions.Env.push('PRESSFLOW_SETTINGS=' + JSON.stringify(pressflowSettings));
+    component.installOptions.Env.push(
+      'PRESSFLOW_SETTINGS=' + JSON.stringify(pressflowSettings)
+    );
 
     done();
   });
