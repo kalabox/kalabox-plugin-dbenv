@@ -1,2 +1,74 @@
-# kalabox-plugin-pressflow7-env
-A simple Kalabox plugin to add PRESSFLOW_SETTINGS env support to your app.
+# Kalabox Plugin Pressflow7 Env
+
+A simple Kalabox plugin to add `PRESSFLOW_SETTINGS` env support to your app.
+
+## Installation
+
+You can install this plugin by going into your app directory and running the normal
+
+```
+npm install kalabox-plugin-pressflow7-env --save
+```
+
+In order for your app to use the plugin you will also need to info the app of its existence. This can be done in the `kalabox.json` file in your
+app root. Just add the plyugin name to the `appPlugins` key.
+
+```json
+{
+  "appName": "pressflow7",
+  "appPlugins": [
+    "my-hot-plugin",
+    "kalabox-plugin-pressflow7-env",
+  ],
+  "appComponents": {
+    "data": {
+      "image": {
+        "name": "kalabox/data:stable"
+      }
+    },
+    "db": {
+      "image": {
+        "name": "kalabox/mariadb",
+        "build": true,
+        "src": "dockerfiles/kalabox/mariadb"
+      }
+    },
+    "php": {
+      "image": {
+        "name": "pressflow7/php-fpm",
+        "build": true,
+        "src": "dockerfiles/pressflow7/php-fpm"
+      }
+    },
+    "web": {
+      "image": {
+        "name": "pressflow7/nginx",
+        "build": true,
+        "src": "dockerfiles/pressflow7/nginx"
+      },
+      "proxy": [
+        {
+          "port": "80/tcp",
+          "default": true
+        }
+      ]
+    }
+  }
+}
+
+```
+
+## Other Resources
+
+* [API docs](http://api.kalabox.me/)
+* [Test coverage reports](http://coverage.kalabox.me/)
+* [Kalabox CI dash](http://ci.kalabox.me/)
+* [Mountain climbing advice](https://www.youtube.com/watch?v=tkBVDh7my9Q)
+* [Boot2Docker](https://github.com/boot2docker/boot2docker)
+* [Syncthing](https://github.com/syncthing/syncthing)
+* [Docker](https://github.com/docker/docker)
+
+-------------------------------------------------------------------------------------
+(C) 2015 Kalamuna and friends
+
+
