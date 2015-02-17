@@ -6,7 +6,6 @@
     "kalabox",
     "drupal"
   ],
-  "preferGlobal": true,
   "version": "0.0.2",
   "repository": {
     "type": "git",
@@ -14,7 +13,7 @@
   },
   "bugs": {
     "email": "mike@kalamuna.com",
-    "url": "http://github.com/kalabox/kalabox-issues"
+    "url": "http://github.com/kalabox/kalabox-plugin-pressflow7-env"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
