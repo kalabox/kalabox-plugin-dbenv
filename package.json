@@ -1,6 +1,6 @@
 {
-  "name": "kalabox-plugin-pressflow7-env",
-  "description": "A simple Kalabox plugin to add PRESSFLOW_SETTINGS env support to your app.",
+  "name": "kalabox-plugin-dbenv",
+  "description": "A simple Kalabox plugin to add various APP DB settings to the ENV.",
   "keywords": [
     "docker",
     "kalabox",
@@ -9,11 +9,11 @@
   "version": "0.3.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kalabox/kalabox-plugin-pressflow7-env"
+    "url": "https://github.com/kalabox/kalabox-plugin-dbenv"
   },
   "bugs": {
     "email": "mike@kalamuna.com",
-    "url": "http://github.com/kalabox/kalabox-plugin-pressflow7-env"
+    "url": "http://github.com/kalabox/kalabox-plugin-dbenv"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

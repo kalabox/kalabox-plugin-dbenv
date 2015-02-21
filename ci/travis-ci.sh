@@ -16,7 +16,7 @@ before-install() {
   if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-pressflow7-env" ]; then
-      openssl aes-256-cbc -K $encrypted_d2d108588443_key -iv $encrypted_d2d108588443_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
+      openssl aes-256-cbc -K $encrypted_464715128b4d_key -iv $encrypted_464715128b4d_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
   fi
 }
 

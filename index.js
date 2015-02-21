@@ -27,7 +27,7 @@ module.exports = function(app, events) {
       }
     };
     component.installOptions.Env.push(
-      'PRESSFLOW_SETTINGS=' + JSON.stringify(pressflowSettings)
+      'KB_APP_SETTINGS=' + JSON.stringify(pressflowSettings)
     );
 
     done();
