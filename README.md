@@ -1,13 +1,13 @@
-# Kalabox Plugin Pressflow7 Env
+# Kalabox Plugin Env
 
-A simple Kalabox plugin to add `PRESSFLOW_SETTINGS` env support to your app.
+A simple Kalabox plugin to add env VAR support to your app.
 
 ## Installation
 
 You can install this plugin by going into your app directory and running the normal
 
 ```
-npm install kalabox-plugin-pressflow7-env --save
+npm install kalabox-plugin-dbenv --save
 ```
 
 In order for your app to use the plugin you will also need to info the app of its existence. This can be done in the `kalabox.json` file in your
