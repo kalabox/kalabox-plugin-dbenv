@@ -2,6 +2,7 @@
 
 COMMAND=$1
 EXIT_VALUE=0
+PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 
 ##
 # SCRIPT COMMANDS
@@ -15,7 +16,7 @@ before-install() {
   # Add our key
   if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
-    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-pressflow7-env" ]; then
+    [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
       openssl aes-256-cbc -K $encrypted_464715128b4d_key -iv $encrypted_464715128b4d_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
   fi
 }
@@ -61,7 +62,7 @@ after-script() {
 after-success() {
   if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
-    [ $TRAVIS_REPO_SLUG == "kalabox/kalabox-plugin-pressflow7-env" ]; then
+    [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
 
     # DO VERSION BUMPING FOR KALABOX/KALABOX
     COMMIT_MESSAGE=$(git log --format=%B -n 1)
