@@ -3,7 +3,8 @@
 // "Constants"
 var PLUGIN_NAME = 'kalabox-plugin-dbenv';
 
-module.exports = function(app, events) {
+module.exports = function(kbox, app) {
+  var events = kbox.core.events;
 
   // Events
   events.on('pre-install-component', function(component, done) {
