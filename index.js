@@ -24,7 +24,8 @@ module.exports = function(kbox) {
               port: 3306
             }
           }
-        }
+        },
+        conf: {}
       };
       if (app.config.pluginConf[PLUGIN_NAME]) {
         if (app.config.pluginConf[PLUGIN_NAME].settings) {
