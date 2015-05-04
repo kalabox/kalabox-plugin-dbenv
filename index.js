@@ -33,13 +33,12 @@ module.exports = function(kbox) {
         }
       }
       settings = _.merge({}, defaultSettings, settings);
+      var envSet = 'KB_APP_SETTINGS=' + JSON.stringify(settings);
       if (component.installOptions.Env) {
-        component.installOptions.Env.push(
-          'KB_APP_SETTINGS=' + JSON.stringify(settings)
-        );
+        component.installOptions.Env.push(envSet);
       }
       else {
-        component.installOptions.Env = ['KB_APP_SETTINGS=' + JSON.stringify(settings)];
+        component.installOptions.Env = [envSet];
       }
 
       done();
