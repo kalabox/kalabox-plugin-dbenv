@@ -1,5 +1,6 @@
 'use strict';
 
+var crypto = require('crypto');
 var _ = require('lodash');
 var PLUGIN_NAME = 'kalabox-plugin-dbenv';
 
@@ -29,16 +30,26 @@ module.exports = function(kbox) {
       }
     }
     settings = _.merge({}, defaultSettings, settings);
+    // This lets us run drops-8 as is
+    var dhs = crypto
+      .createHash('sha256')
+      .update(JSON.stringify(defaultSettings.databases))
+      .digest('hex');
+    settings['drupal_hash_salt'] = dhs;
 
     // Events
     // pre-install
     kbox.core.events.on('pre-install-component', function(component, done) {
-      var envSet = 'KB_APP_SETTINGS=' + JSON.stringify(settings);
+      var installEnvs = [
+        'KB_APP_SETTINGS=' + JSON.stringify(settings)
+      ];
       if (component.installOptions.Env) {
-        component.installOptions.Env.push(envSet);
+        installEnvs.forEach(function(env) {
+          component.installOptions.Env.push(env);
+        });
       }
       else {
-        component.installOptions.Env = [envSet];
+        component.installOptions.Env = installEnvs;
       }
       done();
     });
