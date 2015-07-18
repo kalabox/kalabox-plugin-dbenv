@@ -35,8 +35,11 @@ module.exports = function(kbox) {
       .createHash('sha256')
       .update(JSON.stringify(defaultSettings.databases))
       .digest('hex');
+    /* jshint ignore:start */
+    //jscs:disable
     settings['drupal_hash_salt'] = dhs;
-
+    /* jshint ignore:end */
+    
     // Events
     // pre-install
     kbox.core.events.on('pre-install-component', function(component, done) {
