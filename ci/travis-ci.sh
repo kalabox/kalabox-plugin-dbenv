@@ -14,7 +14,8 @@ PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 #
 before-install() {
   # Add our key
-  if [ ! -z "$TRAVIS_TAG" ] &&
+  echo $TRAVIS_TAG
+  if [[ ! -z "${TRAVIS_TAG}" ]] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
       openssl aes-256-cbc -K $encrypted_464715128b4d_key -iv $encrypted_464715128b4d_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
@@ -60,7 +61,7 @@ after-script() {
 # Clean up after the tests.
 #
 after-success() {
-  if [ ! -z "$TRAVIS_TAG" ] &&
+  if [[ ! -z "$TRAVIS_TAG" ]] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
 
