@@ -14,6 +14,8 @@ PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 #
 before-install() {
   # Add our key
+  # Save this for later
+  export BRANCH=$TRAVIS_BRANCH
   if [[ ! -z "${TRAVIS_TAG}" ]] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
@@ -66,8 +68,6 @@ after-success() {
 
     # Only do our stuff on the latest node version
     if [ $TRAVIS_NODE_VERSION == "0.12" ] ; then
-      # Save this for later
-      BRANCH=$TRAVIS_BRANCH
       # DO VERSION BUMPING FOR REPO
       COMMIT_MESSAGE=$(git log --format=%B -n 1)
       BUILD_VERSION=$(node -pe 'JSON.parse(process.argv[1]).version' "$(cat $TRAVIS_BUILD_DIR/package.json)")
