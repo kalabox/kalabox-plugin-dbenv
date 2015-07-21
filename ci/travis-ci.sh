@@ -14,7 +14,7 @@ PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 #
 before-install() {
   # Add our key
-  echo $TRAVIS_TAG
+  echo $TRAVIS_BRANCH
   if [[ ! -z "${TRAVIS_TAG}" ]] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
