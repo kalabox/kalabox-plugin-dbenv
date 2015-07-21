@@ -14,7 +14,6 @@ PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 #
 before-install() {
   # Add our key
-  echo $TRAVIS_BRANCH
   if [[ ! -z "${TRAVIS_TAG}" ]] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
@@ -67,6 +66,8 @@ after-success() {
 
     # Only do our stuff on the latest node version
     if [ $TRAVIS_NODE_VERSION == "0.12" ] ; then
+      # Save this for later
+      BRANCH=$TRAVIS_BRANCH
       # DO VERSION BUMPING FOR REPO
       COMMIT_MESSAGE=$(git log --format=%B -n 1)
       BUILD_VERSION=$(node -pe 'JSON.parse(process.argv[1]).version' "$(cat $TRAVIS_BUILD_DIR/package.json)")
@@ -86,7 +87,7 @@ after-success() {
       # We need to re-add this in because our clone was originally read-only
       git remote rm origin
       git remote add origin git@github.com:$TRAVIS_REPO_SLUG.git
-      git checkout $TRAVIS_BRANCH
+      git checkout $BRANCH
 
       # Commit the codes and realign the tag
       git tag -d $TRAVIS_TAG
@@ -94,7 +95,7 @@ after-success() {
       git commit -m "KALABOT TWERKING VERSION ${BUILD_VERSION} [ci skip]" --author="Kala C. Bot <kalacommitbot@kalamuna.com>" --no-verify
       git tag $TRAVIS_TAG
       git push origin :$TRAVIS_TAG
-      git push origin $TRAVIS_BRANCH --tags
+      git push origin $BRANCH --tags
 
       # DEPLOY OUR BUILD TO NPM
       $HOME/npm-config.sh > /dev/null
