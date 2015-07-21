@@ -14,7 +14,7 @@ PLUGIN_REPO="kalabox/kalabox-plugin-dbenv"
 #
 before-install() {
   # Add our key
-  if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
+  if [ ! -z "$TRAVIS_TAG" ] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
       openssl aes-256-cbc -K $encrypted_464715128b4d_key -iv $encrypted_464715128b4d_iv -in ci/travis.id_rsa.enc -out $HOME/.ssh/travis.id_rsa -d
@@ -60,19 +60,17 @@ after-script() {
 # Clean up after the tests.
 #
 after-success() {
-  if ([ $TRAVIS_BRANCH == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
+  if [ ! -z "$TRAVIS_TAG" ] &&
     [ $TRAVIS_PULL_REQUEST == "false" ] &&
     [ $TRAVIS_REPO_SLUG == $PLUGIN_REPO ]; then
 
     # Only do our stuff on the latest node version
     if [ $TRAVIS_NODE_VERSION == "0.12" ] ; then
-      # DO VERSION BUMPING FOR KALABOX/KALABOX
+      # DO VERSION BUMPING FOR REPO
       COMMIT_MESSAGE=$(git log --format=%B -n 1)
       BUILD_VERSION=$(node -pe 'JSON.parse(process.argv[1]).version' "$(cat $TRAVIS_BUILD_DIR/package.json)")
       # BUMP patch but only on master and not a tag
-      if [ -z "$TRAVIS_TAG" ] && [ $TRAVIS_BRANCH == "master" ] && [ "${COMMIT_MESSAGE}" != "Release v${BUILD_VERSION}" ] ; then
-        grunt bump-patch
-      fi
+      grunt bump-patch
       # Get updated build version
       BUILD_VERSION=$(node -pe 'JSON.parse(process.argv[1]).version' "$(cat $TRAVIS_BUILD_DIR/package.json)")
       chmod 600 $HOME/.ssh/travis.id_rsa
@@ -88,11 +86,14 @@ after-success() {
       git remote rm origin
       git remote add origin git@github.com:$TRAVIS_REPO_SLUG.git
       git checkout $TRAVIS_BRANCH
+
+      # Commit the codes and realign the tag
+      git tag -d $TRAVIS_TAG
       git add -A
-      if [ -z "$TRAVIS_TAG" ]; then
-        git commit -m "KALABOT TWERKING VERSION ${BUILD_VERSION} [ci skip]" --author="Kala C. Bot <kalacommitbot@kalamuna.com>" --no-verify
-      fi
-      git push origin $TRAVIS_BRANCH
+      git commit -m "KALABOT TWERKING VERSION ${BUILD_VERSION} [ci skip]" --author="Kala C. Bot <kalacommitbot@kalamuna.com>" --no-verify
+      git tag $TRAVIS_TAG
+      git push origin :$TRAVIS_TAG
+      git push origin $TRAVIS_BRANCH --tags
 
       # DEPLOY OUR BUILD TO NPM
       $HOME/npm-config.sh > /dev/null
