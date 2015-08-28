@@ -6,7 +6,7 @@ var PLUGIN_NAME = 'kalabox-plugin-dbenv';
 
 module.exports = function(kbox) {
 
-  kbox.whenApp(function(app) {
+  kbox.ifApp(function(app) {
     var settings = {};
     var defaultSettings = {
       databases: {
