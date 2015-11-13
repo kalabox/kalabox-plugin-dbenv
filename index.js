@@ -6,6 +6,8 @@ var PLUGIN_NAME = 'kalabox-plugin-dbenv';
 
 module.exports = function(kbox) {
 
+  var events = kbox.core.events.context('fa577e2f-d464-4471-92cc-b01464196ae6');
+
   kbox.ifApp(function(app) {
     var settings = {};
     var defaultSettings = {
@@ -42,7 +44,7 @@ module.exports = function(kbox) {
     
     // Events
     // pre-install
-    kbox.core.events.on('pre-install-component', function(component, done) {
+    events.on('pre-install-component', function(component, done) {
       var installEnvs = [
         'KB_APP_SETTINGS=' + JSON.stringify(settings)
       ];
@@ -58,7 +60,7 @@ module.exports = function(kbox) {
     });
 
     // EVENT: pre-engine-create
-    kbox.core.events.on('pre-engine-create', function(createOptions, done) {
+    events.on('pre-engine-create', function(createOptions, done) {
       if (!createOptions.name) {
         var envs = [
           'PRESSFLOW_SETTINGS=' + JSON.stringify(settings),
